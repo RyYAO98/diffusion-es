@@ -3,7 +3,7 @@ python nuplan-devkit/nuplan/planning/script/run_training.py \
     job_name=kinematic \
     py_func=train \
     +training=training_kinematic_diffusion_model \
-    cache.cache_path=/home/scratch/brianyan/test_cache \
+    cache.cache_path=/home/yaory/nuplan/test_cache \
     cache.force_feature_computation=False \
     cache.use_cache_without_dataset=True \
     lightning.trainer.params.max_epochs=500 \
