@@ -24,7 +24,7 @@ from tuplan_garage.planning.simulation.planner.pdm_planner.observation.pdm_obser
 from tuplan_garage.planning.simulation.planner.pdm_planner.observation.pdm_occupancy_map import (
     PDMOccupancyMap,
 )
-from tuplan_garage.planning.simulation.planner.pdm_planner.scoring.pdm_comfort_metrics import (
+from tuplan_garage.planning.simulation.planner.pdm_planner.scoring.pdm_comfort_metrics_old import (
     ego_is_comfortable,
 )
 from tuplan_garage.planning.simulation.planner.pdm_planner.scoring.pdm_scorer_utils import (
