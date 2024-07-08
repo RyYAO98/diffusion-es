@@ -16,6 +16,6 @@ defaults:
 
 log_config: False                                  # Whether to log the final config after all overrides and interpolations
 port_number: 5006
-simulation_path: /home/scratch/brianyan/nuplan_exp/exp/simulation/
+simulation_path: null
 resource_prefix: null
 profiler_path: null

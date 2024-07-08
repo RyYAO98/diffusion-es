@@ -1,4 +1,4 @@
-name: nuplan_repro
+name: nuplan_repo
 channels:
   - conda-forge
 dependencies:
