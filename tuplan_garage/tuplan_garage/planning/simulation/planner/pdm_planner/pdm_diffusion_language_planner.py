@@ -79,7 +79,9 @@ class PDMDiffusionLanguagePlanner(PDMDiffusionPlanner):
         self.llm = dspy.OpenAI(
             model=self.language_config['model'],
             temperature=self.language_config['temperature'],
-            max_tokens=self.language_config['max_tokens']
+            max_tokens=self.language_config['max_tokens'],
+            api_key=os.environ.get('OPENAI_API_KEY'),
+            api_base=os.environ.get('BASE_URL')
         )
         dspy.settings.configure(lm=self.llm)
 
@@ -98,11 +100,10 @@ class PDMDiffusionLanguagePlanner(PDMDiffusionPlanner):
         # Invoke LLM here
         self.build_llm_module()
         instruction = self.language_config['instruction']
-
         output = self.llm_module(instruction=instruction)
         code = output.code
         print(f'LANGUAGE INSTRUCTION: {instruction}')
-
+        
         try:
             print('LLM GENERATED CODE:')
             print(code)
