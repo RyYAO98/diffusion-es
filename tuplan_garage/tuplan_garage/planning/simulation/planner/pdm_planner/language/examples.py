@@ -4,7 +4,7 @@ import dspy
 from dspy.teleprompt import LabeledFewShot
 
 
-EXAMPLES_PATH = '/zfsauton2/home/brianyan/tuplan_garage/tuplan_garage/planning/simulation/planner/pdm_planner/language/demonstrations/'
+EXAMPLES_PATH = './tuplan_garage/tuplan_garage/planning/simulation/planner/pdm_planner/language/demonstrations/'
 
 
 def load_examples(path=EXAMPLES_PATH):
