@@ -32,7 +32,7 @@ class GenerateCode(dspy.Module):
     def __init__(self):
         super().__init__()
         
-        self.predict = dspy.Predict(GenerateCodeFromInstruction)
+        self.predict = dspy.ChainOfThought(GenerateCodeFromInstruction)
 
     def forward(self, instruction):
         prediction = self.predict(instruction=instruction)
@@ -81,7 +81,8 @@ class PDMDiffusionLanguagePlanner(PDMDiffusionPlanner):
             temperature=self.language_config['temperature'],
             max_tokens=self.language_config['max_tokens'],
             api_key=os.environ.get('OPENAI_API_KEY'),
-            api_base=os.environ.get('BASE_URL')
+            api_base=os.environ.get('BASE_URL'),
+            cache_seed=0
         )
         dspy.settings.configure(lm=self.llm)
 
@@ -101,7 +102,8 @@ class PDMDiffusionLanguagePlanner(PDMDiffusionPlanner):
         self.build_llm_module()
         instruction = self.language_config['instruction']
         output = self.llm_module(instruction=instruction)
-        code = output.code
+        # code = output.code
+        code = output.code.split('python\n')[-1].strip('```')
         print(f'LANGUAGE INSTRUCTION: {instruction}')
         
         try:
