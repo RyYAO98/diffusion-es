@@ -348,7 +348,7 @@ class PDMDiffusionPlanner(AbstractPDMPlanner):
             features['constraints'] = self._generate_constraints(current_input)
             features['counter'] = len(self._frames)
             if self._use_pdm_proposals:
-                predictions = self._model_loader._model.run_diffusion_es(features, warm_start=pdm_proposals)
+                predictions = self._model_loader._model.run_diffusion_es(features, warm_start=pdm_proposals, use_cem=True, cem_iters=2) # todo: add to config
             else:
                 predictions = self._model_loader._model.run_diffusion_es(features)
 
