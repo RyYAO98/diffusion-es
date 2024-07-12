@@ -27,4 +27,4 @@ do
     planner.pdm_diffusion_language_planner.language_config.instruction="Change lanes to the left."
 done
 
-python process_results.py --result_path $RESULT_PATH
+python tuplan_garage/process_results.py --result_path $RESULT_PATH

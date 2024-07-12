@@ -2,7 +2,7 @@
 SPLIT=controllability_06_yielding # val14_split
 CHALLENGE=closed_loop_reactive_agents # open_loop_boxes, closed_loop_nonreactive_agents, closed_loop_reactive_agents
 EXPERIMENT_NAME=controllability_06_ours
-RESULT_PATH=/zfsauton/datasets/ArgoRL/brianyan/nuplan_exp/viz/results_$EXPERIMENT_NAME.json
+RESULT_PATH=/home/yaory/nuplan/exp/exp/ctrl_res/results_$EXPERIMENT_NAME.json
 
 for SEED in {1..10}
 do
@@ -10,8 +10,8 @@ do
     +simulation=$CHALLENGE \
     model=kinematic_diffusion_model \
     planner=pdm_diffusion_language_planner \
-    planner.pdm_diffusion_language_planner.checkpoint_path="/zfsauton/datasets/ArgoRL/brianyan/nuplan_exp/kinematic_v2/no_hist/2023.10.13.11.46.37/best_model/epoch\=490.ckpt" \
-    planner.pdm_diffusion_language_planner.dump_gifs_path="/zfsauton/datasets/ArgoRL/brianyan/nuplan_exp/viz/" \
+    planner.pdm_diffusion_language_planner.checkpoint_path="/home/yaory/nuplan/exp/exp/kinematic/kinematic/2024.06.25.20.53.42/checkpoints/epoch\=490.ckpt" \
+    planner.pdm_diffusion_language_planner.dump_gifs_path="/home/yaory/nuplan/exp/exp/kinematic/viz/2024.06.25.20.53.42_controllability_06" \
     scenario_filter=$SPLIT \
     scenario_builder=nuplan \
     number_of_gpus_allocated_per_simulation=1.0 \
@@ -27,4 +27,4 @@ do
     planner.pdm_diffusion_language_planner.language_config.instruction="Slow down and change lanes to the left. Then once car 8 is ahead of you change lanes to the right."
 done
 
-python process_results.py --result_path $RESULT_PATH
+python tuplan_garage/process_results.py --result_path $RESULT_PATH
