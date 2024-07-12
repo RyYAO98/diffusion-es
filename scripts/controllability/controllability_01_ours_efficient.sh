@@ -1,0 +1,32 @@
+
+SPLIT=controllability_01_lane_change # val14_split
+CHALLENGE=closed_loop_reactive_agents # open_loop_boxes, closed_loop_nonreactive_agents, closed_loop_reactive_agents
+EXPERIMENT_NAME=controllability_01_ours_efficient
+RESULT_PATH=/home/yaory/nuplan/exp/exp/ctrl_res/results_$EXPERIMENT_NAME.json
+
+for SEED in {1..10}
+do
+    python $NUPLAN_DEVKIT_ROOT/nuplan/planning/script/run_simulation.py \
+    +simulation=$CHALLENGE \
+    model=kinematic_diffusion_model \
+    model.T=10 \
+    model.predictions_per_sample=32 \
+    planner=pdm_diffusion_language_planner \
+    planner.pdm_diffusion_language_planner.checkpoint_path="/home/yaory/nuplan/exp/exp/kinematic/kinematic_efficient/2024.07.01.22.57.38/checkpoints/epoch\=190.ckpt" \
+    planner.pdm_diffusion_language_planner.dump_gifs_path="/home/yaory/nuplan/exp/exp/kinematic/viz/2024.07.01.22.57.38_controllability_01" \
+    scenario_filter=$SPLIT \
+    scenario_builder=nuplan \
+    number_of_gpus_allocated_per_simulation=1.0 \
+    hydra.searchpath="[pkg://tuplan_garage.planning.script.config.common, pkg://tuplan_garage.planning.script.config.simulation, pkg://nuplan.planning.script.config.common, pkg://nuplan.planning.script.experiments]" \
+    worker=sequential \
+    observation=noisy_idm_agents_observation \
+    metric_aggregator=closed_loop_reactive_agents_weighted_average_no_prog \
+    ego_controller=one_stage_controller \
+    seed=$SEED \
+    experiment_name=$EXPERIMENT_NAME \
+    planner.pdm_diffusion_language_planner.experiment_log_path=$RESULT_PATH \
+    planner.pdm_diffusion_language_planner.nuplan_output_dir=\${output_dir} \
+    planner.pdm_diffusion_language_planner.language_config.instruction="Change lanes to the left."
+done
+
+python tuplan_garage/process_results.py --result_path $RESULT_PATH
